@@ -1,6 +1,35 @@
 class Forca {
 
-  chutar(letra) { }
+  chutar(letra) {
+
+    function isNum(val){
+      return !isNaN(val)
+    }
+
+    function validarQuantidadeDeDigitos(val){
+        if (val.length > 1){
+          console.log("digite apenas uma letra")
+        }
+        if (val.length < 1){
+          console.log("digite pelo menos uma letra")
+        }
+    }
+
+    function incluirLetrasChutadas(val, array){
+      if (array.some(val)){
+          console.log("a letra em questão já foi digitada, segue abaixo todas as letras já digitadas");
+          console.log(array);
+      }
+    }
+
+    if(isNum(letra) && letra != undefined){
+      console.log("digite apenas letras");
+      return;
+    }
+    validarQuantidadeDeDigitos(letra);    
+    incluirLetrasChutadas(letra);
+   }
+  
 
   buscarEstado() { return ""; } // Possiveis valores: "perdeu", "aguardando chute" ou "ganhou"
 
