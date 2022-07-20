@@ -18,21 +18,24 @@ class Forca {
         }
     }
 
-    function incluirLetrasChutadas(val, arr){
-      const contemLetra = arr.some(element => {
-        return element.toLowerCase() === val.toLowerCase();
-      });
-      
-
-      if(contemLetra){
-          console.log("a letra em questão já foi digitada, segue abaixo todas as letras já digitadas");
-          console.log(array);
+    function compararLetras(letra, array){
+      if(array.some((array) => array == letra)){
+      return true;
       }
-      letrasChutadas.push(val);
+      return false;
+    }
+  
+  
+    function adcionarLetras(val, arr){
+      if(compararLetras(val, letrasChutadas)){
+          return console.log("essa letra já foi informada");
+      }
+      arr.push(val);
+      return console.log(arr);
     }
 
     function validarLetrasPalavra(val){
-      incluirLetrasChutadas(val, letrasChutadas);
+      adcionarLetras(val, letrasChutadas);
       if (!palavraSecreta.includes(val)){
         this.vidas = -1;
       }
