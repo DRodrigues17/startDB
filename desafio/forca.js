@@ -1,5 +1,5 @@
 class Forca {
-  letrasChutadas = [];
+  letras = [];
   vidas = 6;
   palavra = [];
 
@@ -18,8 +18,8 @@ class Forca {
         }
     }
 
-    function compararLetras(letra, array){
-      if(array.some((array) => array == letra)){
+    function compararLetras(val, array){
+      if(array.some((array) => array == val)){
       return true;
       }
       return false;
@@ -27,27 +27,35 @@ class Forca {
   
   
     function adcionarLetras(val, arr){
-      if(compararLetras(val, letrasChutadas)){
-          return console.log("essa letra já foi informada");
+      if(compararLetras(val, arr)){
+          console.log("essa letra já foi informada");
+          return false;
       }
       arr.push(val);
-      return console.log(arr);
+      return true;
     }
 
-    function validarLetrasPalavra(val){
-      adcionarLetras(val, letrasChutadas);
+    function adcionararLetrasPalavra(val, arr, palavraSecreta){
       if (!palavraSecreta.includes(val)){
-        this.vidas = -1;
+        return ;
+      }
+      if(val == "a"){
+        arr.push(val);
       }
       
+      return true;
     }
 
     if(isNum(letra)){
       console.log("digite apenas letras");
       return;
     }
-    validarQuantidadeDeDigitos(letra);    
-    validarLetrasPalavra(letra);
+    validarQuantidadeDeDigitos(letra);
+    if (adcionarLetras(letra, this.letras)){
+    if(!adcionararLetrasPalavra(letra, this.palavra, 'abacaxi')){
+      this.vidas -= 1;
+    }
+    }
     this.buscarEstado();
    }
   
@@ -56,7 +64,7 @@ class Forca {
     if (this.vidas == 0){
       return "perdeu";
     }
-    if (this.palavra.length == 6 && this.vidas > 0){
+    if (this.palavra.length == 7 && this.vidas > 0){
       return "ganhou";
     }
     return "aguardando chute";
@@ -64,8 +72,8 @@ class Forca {
 
   buscarDadosDoJogo() {
       return {
-          letrasChutadas: this.letrasChutadas, // Deve conter todas as letras chutadas
-          vidas: this.vidas, // Quantidade de vidas restantes
+          letrasChutadas: this.letras,
+          vidas: this.vidas,
           palavra: this.palavra // Deve ser um array com as letras que já foram acertadas ou o valor "_" para as letras não identificadas
       }
   }

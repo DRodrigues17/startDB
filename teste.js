@@ -1,7 +1,7 @@
 const letrasChutadas = ["a"];
 
-function compararLetras(letra, array){
-    if(array.some((array) => array == letra)){
+function compararLetras(val, array){
+    if(array.some((array) => array == val)){
     return true;
     }
     return false;
@@ -9,7 +9,7 @@ function compararLetras(letra, array){
 
 
 function adcionarLetras(val, arr){
-    if(compararLetras(val, letrasChutadas)){
+    if(compararLetras(val, arr)){
         return console.log("essa letra já foi informada");
     }
     arr.push(val);
@@ -18,4 +18,4 @@ function adcionarLetras(val, arr){
 
 
 
-adcionarLetras("b", letrasChutadas);
+adcionarLetras("a", letrasChutadas);
