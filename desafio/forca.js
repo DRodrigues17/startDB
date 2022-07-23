@@ -1,80 +1,85 @@
 class Forca {
   letras = [];
   vidas = 6;
-  palavra = 'abacaxi';
-  abacaxi = palavra.split('');
-  array = new Array(this.palavra.length).fill('');
+  palavraSecreta = 'abacaxi';
+  arrayPalavraSecreta = this.palavraSecreta.split('');
+  palavra = new Array(this.palavraSecreta.length).fill('_');
 
   chutar(letra) {
-    function isNum(val) {
-      return !isNaN(val);
+
+    function isNumerico(val){
+      return !isNaN(val)
     }
 
-    function validarQuantidadeDeDigitos(val) {
-      if (val.length > 1) {
-        console.log('digite apenas uma letra');
-      }
-      if (val.length < 1) {
-        console.log('digite pelo menos uma letra');
-      }
-    }
-
-    function compararLetras(val, array) {
-      if (array.some((array) => array == val)) {
+    function validarQuantidadeDigitosDigitados(val){
+        if (val.length > 1){
+          console.log("digite apenas uma letra");
+          return false;
+        }
+        if (val.length < 1){
+          console.log("digite pelo menos uma letra");
+          return false;
+        }
         return true;
-      }
-      return false;
     }
 
-    function adcionarLetras(val, arr) {
-      if (compararLetras(val, arr)) {
-        console.log('essa letra já foi informada');
-        return false;
+    function compararLetrasArrayLetras(val, array){
+      return !!(array.some((array) => array == val));
+    }
+  
+    function adcionarLetrasArrayLetras(val, arr){
+      if(compararLetrasArrayLetras(val, arr)){
+          console.log("essa letra já foi informada");
+          return false;
       }
       arr.push(val);
       return true;
     }
 
-    function adcionararLetrasPalavra(val, arr, arr2) {
-      if (!arr2.includes(val)) {
+    function adcionararLetrasArrayPalavra(val, arr, arr2){
+      if (!arr2.includes(val)){
         return false;
       }
-      arr.foreach((_abacaxi, index) => {
-        jogadas[index] = _abacaxi;
-      })
-
+      let i;
+      for (i=0; i< arr.length; i++){
+          if(arr2[i].includes(val)){
+              arr[i] = val;
+          }
+      }
       return true;
     }
 
-    if (isNum(letra)) {
-      console.log('digite apenas letras');
+
+    if(isNumerico(letra)){
+      console.log("digite apenas letras");
       return;
     }
-    validarQuantidadeDeDigitos(letra);
-    if (adcionarLetras(letra, this.letras)) {
-      if (!adcionararLetrasPalavra(letra, this.palavra, this.palavraSecreta)) {
-        this.vidas -= 1;
+    
+    if (validarQuantidadeDigitosDigitados(letra)){
+      if (adcionarLetrasArrayLetras(letra, this.letras)){
+        if(!adcionararLetrasArrayPalavra(letra, this.palavra, this.arrayPalavraSecreta)){
+          this.vidas -= 1;
+        }
       }
     }
     this.buscarEstado();
-  }
+   }
 
-  buscarEstado() {
-    if (this.vidas == 0) {
-      return 'perdeu';
-    }
-    if (this.palavra == this.palavraSecreta && this.vidas > 0) {
-      return 'ganhou';
-    }
-    return 'aguardando chute';
+  buscarEstado() { 
+      if (this.vidas == 0){
+      return "perdeu";
+      }
+      if (this.palavra.join('') == this.palavraSecreta){
+          return "ganhou";
+      }
   }
 
   buscarDadosDoJogo() {
-    return {
-      letrasChutadas: this.letras,
-      vidas: this.vidas,
-      palavra: this.palavra, // Deve ser um array com as letras que já foram acertadas ou o valor "_" para as letras não identificadas
-    };
+      return {
+          letrasChutadas: this.letras,
+          vidas: this.vidas,
+          palavra: this.palavra
+      }
   }
 }
 
